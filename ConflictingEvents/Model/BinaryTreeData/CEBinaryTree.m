@@ -64,11 +64,50 @@
 // memory O(N)
 // search/insert O(log N)
 
+- (CEBinaryNode *)insertNodeFromArray:(NSArray <CEBinaryNode*> *)arr start:(NSInteger)start end:(NSInteger)end {
+    if (start > end)
+        return NULL;
+    NSInteger mid = (start + end)/2;
+    CEBinaryNode *node = [[CEBinaryNode alloc] initWithNode:arr[mid]];
+    node.left =  [self insertNodeFromArray:arr start:start end:mid-1];
+    node.right = [self insertNodeFromArray:arr start:mid+1 end:end];
+    
+    if (node.maxEnd < arr[mid].event.end)
+        node.maxEnd = arr[mid].event.end;
+    
+    return node;
+}
+
+
+- (void)pushNode:(CEBinaryNode*)node toSortedArray:(NSMutableArray <CEBinaryNode *> * )allNodes {
+    if (node == NULL) return;
+    [self pushNode:node.left toSortedArray:allNodes];
+    [allNodes addObject:node];
+    [self pushNode:node.right toSortedArray:allNodes];
+}
+
+
+- (CEBinaryTree *)balancedOnSortedNodes {
+    CEBinaryTree *balancedTree = [[CEBinaryTree alloc] init];
+    // populate sorted array of nodes
+    _sortedNodes = [NSMutableArray new];
+    [self pushNode:_root toSortedArray:_sortedNodes];
+    balancedTree->_root = [balancedTree insertNodeFromArray:_sortedNodes start:0 end:_sortedNodes.count-1];
+    return balancedTree;
+}
+
+
+- (NSArray <CEBinaryNode *> *)sortedNodes {
+    return  _sortedNodes;
+}
+
+
 - (NSUInteger)maxDepthForNode:(CEBinaryNode *)node {
     if (node == nil) return 0;
     return MAX([self maxDepthForNode:node.left], [self maxDepthForNode:node.right]) + 1;
 }
 
+#pragma mark - Balance Checkers
 
 - (Boolean)isBalanced:(CEBinaryNode *)node {
     if (!node) return true;
@@ -85,38 +124,6 @@
     return [self isBalanced:_root];
 }
 
-- (void)pushNode:(CEBinaryNode*)node toSortedArray:(NSMutableArray <CEBinaryNode *> * )allNodes {
-    if (node == NULL) return;
-    [self pushNode:node.left toSortedArray:allNodes];
-    [allNodes addObject:node];
-    [self pushNode:node.right toSortedArray:allNodes];
-}
-
-
-- (CEBinaryNode *)insertNodesArray:(NSArray <CEBinaryNode*> *)arr start:(NSInteger)start end:(NSInteger)end {
-    if (start > end)
-        return NULL;
-    NSInteger mid = (start + end)/2;
-    CEBinaryNode *root = [[CEBinaryNode alloc] initWithNode:arr[mid]];
-    root.left =  [self insertNodesArray:arr start:start end:mid-1];
-    root.right = [self insertNodesArray:arr start:mid+1 end:end];
-    return root;
-}
-
-
-- (CEBinaryTree *)balancedOnSortedNodes {
-    CEBinaryTree *balancedTree = [[CEBinaryTree alloc] init];
-    // populate sorted array of nodes
-    _sortedNodes = [NSMutableArray new];
-    [self pushNode:_root toSortedArray:_sortedNodes];
-    balancedTree->_root = [balancedTree insertNodesArray:_sortedNodes start:0 end:_sortedNodes.count-1];
-    return balancedTree;
-}
-
-
-- (NSArray <CEBinaryNode *> *)sortedNodes {
-    return  _sortedNodes;
-}
 
 #pragma mark - CollisionCheck
 

@@ -46,7 +46,7 @@
 #if 0
     return [events shuffled];   // for random tests
 #else
-#if DEBUG_FIXING_UNBALANCED     // for debugging
+#if DEBUG_FIXING_UNBALANCED     // for easier debugging
     NSArray *halfArray;
     NSRange theRange;
     theRange.location = 0;
