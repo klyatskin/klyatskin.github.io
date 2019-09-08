@@ -104,7 +104,7 @@
 }
 
 
-- (CEBinaryTree *)balanced {
+- (CEBinaryTree *)balancedOnSortedNodes {
     CEBinaryTree *balancedTree = [[CEBinaryTree alloc] init];
     // populate sorted array of nodes
     _sortedNodes = [NSMutableArray new];

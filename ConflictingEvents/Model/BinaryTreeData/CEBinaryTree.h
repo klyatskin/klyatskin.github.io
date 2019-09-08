@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CEBinaryNode *)createNodeWithEvent:(CEEvent *)event; // unbalanced...
 - (Boolean)isBalanced;
-- (CEBinaryTree *)balanced;
+- (CEBinaryTree *)balancedOnSortedNodes;
 
 - (NSArray <CEBinaryNode *> *)sortedNodes; // NULL if no balanced was requested...
 - (CEEventCollisionFlag)collisionFlagForEvent:(CEEvent *)event;

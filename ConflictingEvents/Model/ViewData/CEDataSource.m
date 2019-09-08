@@ -47,11 +47,11 @@
     _tree = [[CEBinaryTree alloc] init];  // create unbalance tree
     for (CEEvent *event in events)
         [_tree createNodeWithEvent:event];
-    _treeBalanced = [_tree balanced];     // get balanced  tree + generate sorted array of nodes in unbalanced
+    _treeBalanced = [_tree balancedOnSortedNodes];     // get balanced  tree + generate sorted array of nodes in unbalanced
 
+//    check tree visually...
 //    NSLog(@"++++ Balanced - %@", [_tree isBalanced] ? @"YES":@"NO");
 //    [_tree debugDumpInOrder];
-    
 //    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
 //    [_treeBalanced debugDumpInOrder];
 
