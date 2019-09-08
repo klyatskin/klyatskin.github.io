@@ -120,6 +120,7 @@
 
 #pragma mark - CollisionCheck
 
+// return a event for a first collision or null
 - (CEEvent *)foundCollisionFromNode:(CEBinaryNode *)root forEvent:(CEEvent*)event {
     if (root == NULL) return NULL;
     if ([event isInConflictWith:root.event])
