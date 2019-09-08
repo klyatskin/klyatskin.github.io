@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 // debug
 - (void)debugDumpInOrder;
 - (void)debugDumpPreOrder;
-
+- (void)printNodeNamed:(NSString *)name;
 
 @end
 

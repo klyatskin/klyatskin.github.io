@@ -71,14 +71,17 @@
     CEBinaryNode *node = [[CEBinaryNode alloc] initWithNode:arr[mid]];
     node.left =  [self insertNodeFromArray:arr start:start end:mid-1];
     node.right = [self insertNodeFromArray:arr start:mid+1 end:end];
-    
+
+CORRECT_DEBUG_FIXING_UNBALANCED:
+    node.maxEnd = MAX(node.maxEnd, MAX(node.left.maxEnd,node.right.maxEnd));
+WRONG_DEBUG_FIXING_UNBALANCED:
     if (node.maxEnd < arr[mid].event.end)
         node.maxEnd = arr[mid].event.end;
-    
+
     return node;
 }
 
-
+// creating array O(N)
 - (void)pushNode:(CEBinaryNode*)node toSortedArray:(NSMutableArray <CEBinaryNode *> * )allNodes {
     if (node == NULL) return;
     [self pushNode:node.left toSortedArray:allNodes];
@@ -86,7 +89,7 @@
     [self pushNode:node.right toSortedArray:allNodes];
 }
 
-
+// creating from array O(N)
 - (CEBinaryTree *)balancedOnSortedNodes {
     CEBinaryTree *balancedTree = [[CEBinaryTree alloc] init];
     // populate sorted array of nodes
@@ -176,5 +179,26 @@
     [self debugDumpPreOrder:node.left];
     [self debugDumpPreOrder:node.right];
 }
+
+- (void)printNodeNamed:(NSString *)name {
+    [self printNodeNamed: name andNode:_root];
+}
+
+
+- (void)printNodeNamed:(NSString *)name andNode:(CEBinaryNode *)node {
+    if (node == NULL) return;
+    [self printNodeNamed: name andNode:node.left];
+    if ([node.event.title caseInsensitiveCompare:name] == 0) {
+        NSLog(@"%@ [%@ - %@], max = %@ L= %@ R= %@", node.event.title,
+              [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.event.start]],
+              [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.event.end]],
+              [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.maxEnd]],
+              node.left.event.title,
+              node.right.event.title
+              );
+    }
+    [self printNodeNamed: name andNode:node.right];
+}
+
 
 @end

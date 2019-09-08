@@ -56,6 +56,10 @@
 //    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
 //    [_treeBalanced debugDumpInOrder];
 
+#if DEBUG_FIXING_UNBALANCED
+//    [_treeBalanced printNodeNamed:@"C"];
+#endif
+    
     // prepare data for UITableView
     _dataSource = [NSMutableDictionary dictionaryWithCapacity:1];
     NSDateFormatter *date2DayFormatter = [NSDateFormatter date2day];
@@ -79,8 +83,10 @@
 - (void)colorCollisionForCell:(UITableViewCell *)cell andEvent:(CEEvent *)event  {
     // Use balanced tree as its perfomance is guaranted!
 #if DEBUG_FIXING_UNBALANCED
+    NSLog(@"Using BALANCED tree");
     CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
 #else
+    NSLog(@"Using UNBALANCED tree");
     CEEventCollisionFlag collisionFlag = [_tree collisionFlagForEvent:event];
 #endif
     switch (collisionFlag) {
