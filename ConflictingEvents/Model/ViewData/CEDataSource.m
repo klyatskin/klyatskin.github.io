@@ -47,14 +47,13 @@
     _tree = [[CEBinaryTree alloc] init];  // create unbalance tree
     for (CEEvent *event in events)
         [_tree createNodeWithEvent:event];
-    NSLog(@"++++ Balanced - %@", [_tree isBalanced] ? @"YES":@"NO");
-    [_tree debugDumpInOrder];
+    _treeBalanced = [_tree balanced];     // get balanced  tree + generate sorted array of nodes in unbalanced
+
+//    NSLog(@"++++ Balanced - %@", [_tree isBalanced] ? @"YES":@"NO");
+//    [_tree debugDumpInOrder];
     
-    _treeBalanced = [_tree balanced];       // get balanced  tree + generate sorted array of nodes
 //    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
 //    [_treeBalanced debugDumpInOrder];
-    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
-    [_treeBalanced debugDumpInOrder];
 
     // prepare data for UITableView
     _dataSource = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -74,23 +73,11 @@
     _sortedKeys = [[_dataSource allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
+#pragma mark - Collisions search
 
-#pragma mark - UITableViewDataSource
-
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    CEEventCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
-
-    NSString *key = [_sortedKeys objectAtIndex:indexPath.section];
-    CEEvent *event = _dataSource[key][indexPath.row];
-    cell.lblTitle.text = event.title;
-    // times
-    NSDateFormatter *date2StringFormatter = [NSDateFormatter date2string];
-    cell.lblStart.text = [date2StringFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.start]];
-    cell.lblEnd.text = [date2StringFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.end]];
-    
-    // collisions.
+- (void)colorCollisionForCell:(UITableViewCell *)cell andEvent:(CEEvent *)event  {
     // Use balanced tree as its perfomance is guaranted!
-//    CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
+    //    CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
     CEEventCollisionFlag collisionFlag = [_tree collisionFlagForEvent:event];
     switch (collisionFlag) {
         case CEEventCollisionFlagUndefined:
@@ -107,6 +94,21 @@
                                            reason:@"event.collisionFlag inconsistent!"
                                          userInfo:nil];
     }
+}
+
+#pragma mark - UITableViewDataSource
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    CEEventCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
+
+    NSString *key = [_sortedKeys objectAtIndex:indexPath.section];
+    CEEvent *event = _dataSource[key][indexPath.row];
+    cell.lblTitle.text = event.title;
+    // show times
+    NSDateFormatter *date2StringFormatter = [NSDateFormatter date2string];
+    cell.lblStart.text = [date2StringFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.start]];
+    cell.lblEnd.text = [date2StringFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.end]];
+    [self colorCollisionForCell:cell andEvent:event];
     return cell;
 }
 

@@ -8,12 +8,6 @@
 
 #import "CEEvent.h"
 
-
-@interface CEEvent () {
-}
-
-@end
-
 @implementation CEEvent
 
 - (instancetype)initWithTitle:(NSString *)title start:(NSString *)start end:(NSString *)end {
@@ -27,23 +21,24 @@
 }
 
 - (Boolean)isInConflictWith:(CEEvent *)event {
-    // debug
     if (self == event)
         return false;
+    Boolean result;
+    result =  (self.start < event.end && event.start < self.end);
+//    [self debugIsInConflictWith:event result:result];
+    return result;
+}
+
+
+- (void)debugIsInConflictWith:(CEEvent *)event result:(Boolean)result {
     NSDateFormatter *formatter = [NSDateFormatter date2string];
     NSString *debugStr = [NSString stringWithFormat:@"[%@ - %@] ? [%@ - %@]",
-                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: self.start]],
-                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: self.end]],
-                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.start]],
-                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.end]]
+                          [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: self.start]],
+                          [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: self.end]],
+                          [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.start]],
+                          [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.end]]
                           ];
-    
-    if (self.start < event.end && event.start < self.end) {
-        NSLog(@"%@ ✅", debugStr);
-        return true;
-    }
-    NSLog(@"%@ ❌", debugStr);
-    return false;
+    NSLog(@"%@ %@", result ? @"❌":@"✅", debugStr);
 }
 
 
