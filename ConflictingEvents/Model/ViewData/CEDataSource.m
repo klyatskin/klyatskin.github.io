@@ -50,14 +50,14 @@
         [_tree createNodeWithEvent:event];
     _treeBalanced = [_tree balancedOnSortedNodes];     // get balanced  tree + generate sorted array of nodes in unbalanced
 
+
+#if DEBUG_FIXING_UNBALANCED
 //    check tree visually...
 //    NSLog(@"++++ Balanced - %@", [_tree isBalanced] ? @"YES":@"NO");
 //    [_tree debugDumpInOrder];
 //    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
 //    [_treeBalanced debugDumpInOrder];
-
-#if DEBUG_FIXING_UNBALANCED
-//    [_treeBalanced printNodeNamed:@"C"];
+    [_treeBalanced printNodeNamed:@"C"];
 #endif
     
     // prepare data for UITableView
@@ -82,13 +82,7 @@
 
 - (void)colorCollisionForCell:(UITableViewCell *)cell andEvent:(CEEvent *)event  {
     // Use balanced tree as its perfomance is guaranted!
-#if DEBUG_FIXING_UNBALANCED
-    NSLog(@"Using BALANCED tree");
     CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
-#else
-    NSLog(@"Using UNBALANCED tree");
-    CEEventCollisionFlag collisionFlag = [_tree collisionFlagForEvent:event];
-#endif
     switch (collisionFlag) {
         case CEEventCollisionFlagUndefined:
             cell.contentView.backgroundColor = [UIColor whiteColor];

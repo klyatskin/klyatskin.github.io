@@ -12,12 +12,6 @@
 
 #define ABS64(x) ((x)<0 ? -(x) : (x))
 
-// https://medium.com/@nbfuhao/leetcode-balanced-binary-tree-in-objective-c-6863ed058c5c // depth
-// https://www.geeksforgeeks.org/interval-tree/
-
-// https://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/
-// https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/
-
 
 @interface CEBinaryTree() {
 }
@@ -71,13 +65,7 @@
     CEBinaryNode *node = [[CEBinaryNode alloc] initWithNode:arr[mid]];
     node.left =  [self insertNodeFromArray:arr start:start end:mid-1];
     node.right = [self insertNodeFromArray:arr start:mid+1 end:end];
-
-CORRECT_DEBUG_FIXING_UNBALANCED:
     node.maxEnd = MAX(node.maxEnd, MAX(node.left.maxEnd,node.right.maxEnd));
-WRONG_DEBUG_FIXING_UNBALANCED:
-    if (node.maxEnd < arr[mid].event.end)
-        node.maxEnd = arr[mid].event.end;
-
     return node;
 }
 
