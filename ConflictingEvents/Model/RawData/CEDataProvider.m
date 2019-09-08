@@ -23,7 +23,12 @@
     if (events) return events;
     
     // read file
+#if DEBUG_FIXING_UNBALANCED
+    NSString* path  = [[NSBundle mainBundle] pathForResource:@"DEBUG_FIXING_UNBALANCED" ofType:@"json"];
+#else
     NSString* path  = [[NSBundle mainBundle] pathForResource:@"mock" ofType:@"json"];
+#endif
+    
     NSString* jsonStr = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSData* jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
 
