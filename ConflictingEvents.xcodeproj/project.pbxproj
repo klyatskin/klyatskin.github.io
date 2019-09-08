@@ -54,6 +54,7 @@
 		D11ED70523244502001AFCA5 /* CEEventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEEventCell.h; sourceTree = "<group>"; };
 		D11ED70623244502001AFCA5 /* CEEventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEEventCell.m; sourceTree = "<group>"; };
 		D11ED70723244503001AFCA5 /* CEEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CEEventCell.xib; sourceTree = "<group>"; };
+		D11ED71123253727001AFCA5 /* DebugMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +92,7 @@
 				D11ED6EB232339C3001AFCA5 /* Model */,
 				D11ED6D523233991001AFCA5 /* AppDelegate.h */,
 				D11ED6D623233991001AFCA5 /* AppDelegate.m */,
+				D11ED71123253727001AFCA5 /* DebugMacros.h */,
 				D11ED6DB23233991001AFCA5 /* Main.storyboard */,
 				D11ED6DE23233993001AFCA5 /* Assets.xcassets */,
 				D11ED6E023233993001AFCA5 /* LaunchScreen.storyboard */,

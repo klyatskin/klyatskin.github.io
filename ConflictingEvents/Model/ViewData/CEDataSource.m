@@ -6,6 +6,7 @@
 //  Copyright © 2019 Konstantin Klyatskin. All rights reserved.
 //
 
+#import "DebugMacros.h"
 #import "CEDataSource.h"
 #import "CEDataProvider.h"
 #import "CEBinaryTree.h"
@@ -77,7 +78,7 @@
 
 - (void)colorCollisionForCell:(UITableViewCell *)cell andEvent:(CEEvent *)event  {
     // Use balanced tree as its perfomance is guaranted!
-#if 0
+#if DEBUG_FIXING_UNBALANCED
     CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
 #else
     CEEventCollisionFlag collisionFlag = [_tree collisionFlagForEvent:event];

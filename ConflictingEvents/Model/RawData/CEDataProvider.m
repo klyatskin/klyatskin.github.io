@@ -6,6 +6,7 @@
 //  Copyright © 2019 Konstantin Klyatskin. All rights reserved.
 //
 
+#import "DebugMacros.h"
 #import "CEDataProvider.h"
 #import "NSArray+Shuffle.h"
 
@@ -37,19 +38,20 @@
         CEEvent *event = [[CEEvent alloc] initWithTitle: dic[@"title"] start: dic[@"start"] end: dic[@"end"]];
         [events addObject:event];
     }
-    
-//    return [events shuffled]; // for testing
-    
-/**** for easier debug only...
+#if 0
+    return [events shuffled];   // for random tests
+#else
+#if DEBUG_FIXING_UNBALANCED     // for debugging
     NSArray *halfArray;
     NSRange theRange;
     theRange.location = 0;
-    theRange.length = 4;
+    theRange.length = 5;
     halfArray = [events subarrayWithRange:theRange];
     return halfArray;
-*****/
-    
+#else
     return events;
+#endif
+#endif
 }
 
 
