@@ -28,6 +28,8 @@
 
 - (Boolean)isInConflictWith:(CEEvent *)event {
     // debug
+    if (self == event)
+        return false;
     NSDateFormatter *formatter = [NSDateFormatter date2string];
     NSString *debugStr = [NSString stringWithFormat:@"[%@ - %@] ? [%@ - %@]",
                        [formatter stringFromDate:self.start],
