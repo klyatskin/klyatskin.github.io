@@ -51,10 +51,10 @@
     [_tree debugDumpInOrder];
     
     _treeBalanced = [_tree balanced];       // get balanced  tree + generate sorted array of nodes
+//    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
+//    [_treeBalanced debugDumpInOrder];
     NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
     [_treeBalanced debugDumpInOrder];
-    NSLog(@"++++ Balanced - %@", [_treeBalanced isBalanced] ? @"YES":@"NO");
-    [_treeBalanced debugDumpPreOrder];
 
     // prepare data for UITableView
     _dataSource = [NSMutableDictionary dictionaryWithCapacity:1];
