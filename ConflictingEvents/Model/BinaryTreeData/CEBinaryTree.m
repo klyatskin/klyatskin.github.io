@@ -12,8 +12,7 @@
 
 #define ABS64(x) ((x)<0 ? -(x) : (x))
 
-// https://medium.com/@nbfuhao/leetcode-balanced-binary-tree-in-objective-c-6863ed058c5c
-// https://stackoverflow.com/questions/12066057/binary-tree-in-objective-c
+// https://medium.com/@nbfuhao/leetcode-balanced-binary-tree-in-objective-c-6863ed058c5c // depth
 // https://www.geeksforgeeks.org/interval-tree/
 
 // https://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/
