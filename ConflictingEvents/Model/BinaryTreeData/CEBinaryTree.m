@@ -51,11 +51,11 @@
     if (node == nil) {
         return [[CEBinaryNode alloc] initWithEvent:event];
     }
-    if ([event.start compare:node.event.start] == NSOrderedAscending)
+    if (event.start < node.event.start)
         node.left = [self insertNode:node.left withEvent:event];
     else
         node.right = [self insertNode:node.right withEvent:event];
-    if ([node.maxEnd compare:event.end] == NSOrderedAscending)
+    if (node.maxEnd < event.end)
         node.maxEnd = event.end;
     return node;
 }
@@ -124,7 +124,7 @@
     if (root == NULL) return NULL;
     if ([event isInConflictWith:root.event])
         return root.event;
-    if (root.left != NULL && !([event.start compare:root.left.maxEnd] == NSOrderedAscending))
+    if (root.left != NULL && (root.left.maxEnd >= event.start))
         return [self foundCollisionFromNode:root.left forEvent:event];
     return [self foundCollisionFromNode:root.right forEvent:event];
 }
@@ -153,18 +153,18 @@
     if (node == NULL) return;
     [self debugDumpInOrder:node.left];
     NSLog(@"%@ [%@ - %@], max = %@", node.event.title,
-          [self.dateFormatter stringFromDate:node.event.start],
-          [self.dateFormatter stringFromDate:node.event.end],
-          [self.dateFormatter stringFromDate:node.maxEnd]);
+          [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.event.start]],
+          [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.event.end]],
+          [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.maxEnd]]);
     [self debugDumpInOrder:node.right];
 }
 
 - (void)debugDumpPreOrder:(CEBinaryNode *)node {
     if (node == NULL) return;
     NSLog(@"%@ [%@ - %@], max = %@", node.event.title,
-          [self.dateFormatter stringFromDate:node.event.start],
-          [self.dateFormatter stringFromDate:node.event.end],
-          [self.dateFormatter stringFromDate:node.maxEnd]);
+          [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.event.start]],
+          [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.event.end]],
+          [self.dateFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: node.maxEnd]]);
     [self debugDumpPreOrder:node.left];
     [self debugDumpPreOrder:node.right];
 }

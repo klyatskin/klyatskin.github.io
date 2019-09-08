@@ -16,15 +16,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConflictingEvents/Model/ViewData/CEDataSource.m"
-            timestampString = "589598459.207974"
+            timestampString = "589637837.350629"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "-loadAndPrepareData"
             landmarkType = "7">
          </BreakpointContent>

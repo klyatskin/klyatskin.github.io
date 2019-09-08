@@ -20,8 +20,8 @@
     self = [super init];
     _title = title;
     NSDateFormatter *dateFormatter = [NSDateFormatter string2date];
-    _start = [dateFormatter dateFromString:start];
-    _end = [dateFormatter dateFromString:end];
+    _start = [[dateFormatter dateFromString:start] timeIntervalSince1970];
+    _end = [[dateFormatter dateFromString:end] timeIntervalSince1970];
     _collisionFlag = CEEventCollisionFlagUndefined;
     return self;
 }
@@ -32,29 +32,18 @@
         return false;
     NSDateFormatter *formatter = [NSDateFormatter date2string];
     NSString *debugStr = [NSString stringWithFormat:@"[%@ - %@] ? [%@ - %@]",
-                       [formatter stringFromDate:self.start],
-                       [formatter stringFromDate:self.end],
-                       [formatter stringFromDate:event.start],
-                       [formatter stringFromDate:event.end]];
+                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: self.start]],
+                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: self.end]],
+                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.start]],
+                       [formatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.end]]
+                          ];
     
-    if ([self.end compare:event.start] == NSOrderedAscending) {
+    if (self.start < event.end && event.start < self.end) {
         NSLog(@"%@ ✅", debugStr);
-        return false;
-    }
-    if ([self.end compare:event.start] == NSOrderedSame) {
-        NSLog(@"%@ ✅", debugStr);
-        return false;
-    }
-    if ([self.start compare:event.end] == NSOrderedDescending) {
-        NSLog(@"%@ ✅", debugStr);
-        return false;
-    }
-    if ([self.start compare:event.end] == NSOrderedSame) {
-        NSLog(@"%@ ✅", debugStr);
-        return false;
+        return true;
     }
     NSLog(@"%@ ❌", debugStr);
-    return true;
+    return false;
 }
 
 

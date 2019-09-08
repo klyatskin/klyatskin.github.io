@@ -21,8 +21,8 @@ typedef NS_ENUM(NSInteger, CEEventCollisionFlag) {
 @interface CEEvent : NSObject
 
 @property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSDate *start;
-@property (nonatomic, readonly) NSDate *end;
+@property (nonatomic, readonly) NSTimeInterval start;
+@property (nonatomic, readonly) NSTimeInterval end;
 @property (nonatomic, readonly) CEEventCollisionFlag collisionFlag;
 
 

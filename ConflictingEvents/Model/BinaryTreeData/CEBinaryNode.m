@@ -10,10 +10,6 @@
 
 @implementation CEBinaryNode
 
-- (NSTimeInterval)key {
-    return [self.event.start timeIntervalSince1970];
-}
-
 - (instancetype)initWithEvent:(CEEvent *)event {
     self = [super init];
     self.event = event;

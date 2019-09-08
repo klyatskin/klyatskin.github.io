@@ -62,7 +62,7 @@
     
     NSArray <CEBinaryNode*> *sortedNodes =  [_tree sortedNodes];
     for (CEBinaryNode* node in sortedNodes) {
-        NSString * key = [date2DayFormatter stringFromDate:node.event.start];
+        NSString * key = [date2DayFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970: node.event.start]];
         NSMutableArray *sections = _dataSource[key];
         if (sections) {
             [sections addObject:node.event];
@@ -85,8 +85,8 @@
     cell.lblTitle.text = event.title;
     // times
     NSDateFormatter *date2StringFormatter = [NSDateFormatter date2string];
-    cell.lblStart.text = [date2StringFormatter stringFromDate:event.start];
-    cell.lblEnd.text = [date2StringFormatter stringFromDate:event.end];
+    cell.lblStart.text = [date2StringFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.start]];
+    cell.lblEnd.text = [date2StringFormatter stringFromDate: [NSDate dateWithTimeIntervalSince1970: event.end]];
     
     // collisions.
     // Use balanced tree as its perfomance is guaranted!

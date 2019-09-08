@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CEBinaryNode *left;
 @property (nonatomic) CEBinaryNode *right;
 @property (nonatomic, weak) CEEvent *event;
-@property (nonatomic) NSDate *maxEnd;
+@property (nonatomic) NSTimeInterval maxEnd;
 
 - (instancetype)initWithEvent:(CEEvent *)event;
 - (instancetype)initWithNode:(CEBinaryNode *)node;
