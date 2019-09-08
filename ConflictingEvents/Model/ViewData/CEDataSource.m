@@ -77,8 +77,11 @@
 
 - (void)colorCollisionForCell:(UITableViewCell *)cell andEvent:(CEEvent *)event  {
     // Use balanced tree as its perfomance is guaranted!
-    //    CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
+#if 0
+    CEEventCollisionFlag collisionFlag = [_treeBalanced collisionFlagForEvent:event];
+#else
     CEEventCollisionFlag collisionFlag = [_tree collisionFlagForEvent:event];
+#endif
     switch (collisionFlag) {
         case CEEventCollisionFlagUndefined:
             cell.contentView.backgroundColor = [UIColor whiteColor];
