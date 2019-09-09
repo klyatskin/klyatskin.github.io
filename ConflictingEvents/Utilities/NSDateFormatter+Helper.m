@@ -29,11 +29,7 @@
 // 2018/11/01 - used for table sections
 + (NSDateFormatter *)date2day {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-//    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     [dateFormatter setDateFormat:@"YYYY/MM/dd"];
-
-
     return dateFormatter;
 }
 
